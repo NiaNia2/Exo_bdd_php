@@ -1,16 +1,20 @@
 <?php ob_start();
-$bdd = new PDO('mysql:host=mysql;dbname=mediatheque;charset=utf8', 'root', 'root'); ?>
-<?php
+$bdd = new PDO('mysql:host=mysql;dbname=mediatheque;charset=utf8', 'root', 'root');
+
 if (!empty($_POST['name']) && !empty($_POST['firstname'])) {
     $name = $_POST['name'];
     $firstname = $_POST['firstname'];
     // requete creation
-    $requestcreate = $bdd->prepare('INSERT INTO user(nom,prenom) VALUES(?,?)');
-    $data = $requestcreate->execute(array($name, $firstname));
+    // $requestcreate = $bdd->prepare('INSERT INTO film(nom,prenom) VALUES(?,?)');
+    // $data = $requestcreate->execute(array($name, $firstname));
 }
-$request = $bdd->query('SELECT nom, prenom FROM user');
+// $request = $bdd->query('SELECT nom, prenom FROM user');
+// while ($data = $request->fetch()) {
+// echo '<p>nom' . $data['nom'] . 'prenom' . $data['prenom'] . '</p>';
+// }
+$request = $bdd->query('SELECT titre, realisateur, genre, duree FROM film ORDER BY id DESC LIMIT 3');
 while ($data = $request->fetch()) {
-    echo '<p>nom' . $data['nom'] . 'prenom' . $data['prenom'] . '</p>';
+    echo '<p>Titre: ' . $data['titre'] . 'Réalisateur: ' . $data['realisateur'] . 'Genre: ' . $data['genre'] . 'Durée: ' . $data['duree'] . '</p>';
 }
 ?>
 <!DOCTYPE html>
@@ -23,9 +27,6 @@ while ($data = $request->fetch()) {
 </head>
 
 <body>
-
-    <?php
-    ?>
 
     <form action="index.php" method="post">
         <label for="name">Entrée nom</label>
