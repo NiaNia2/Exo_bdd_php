@@ -1,4 +1,5 @@
 <?php ob_start();
+session_start();
 $bdd = new PDO('mysql:host=mysql;dbname=mediatheque;charset=utf8', 'root', 'root');
 if (isset($_POST['titre']) && isset($_POST['realisateur']) && isset($_POST['genre']) && isset($_POST['duree']) && isset($_POST['synopsis'])) {
     $titre = htmlspecialchars($_POST['titre']);
@@ -8,7 +9,7 @@ if (isset($_POST['titre']) && isset($_POST['realisateur']) && isset($_POST['genr
     $synopsis = htmlspecialchars($_POST['synopsis']);
     $requestcreat = $bdd->prepare('INSERT INTO film(titre,realisateur,genre,duree,synopsis) VALUES(?,?,?,?,?)');
     $requestcreat->execute(array($titre, $realisateur, $genre, $duree, $synopsis));
-    header('location:index.php');
+    header('location:film.php');
 }
 
 ?>
