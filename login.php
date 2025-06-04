@@ -11,7 +11,7 @@ if (!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['pass
     $requestcreate->execute(array());
     $data = $requestcreate->fetch();
     if (password_verify($password, $data['mot_passe'])) {
-        $_SESSION['user'] = [$data['id'], $data['nom'], $data['prenom']];
+        $_SESSION['user'] = ['id' => $data['id'], 'nom' => $data['nom'], 'prenom' => $data['prenom']];
         header('location:index.php');
     } else {
         echo '<p class="error">Mot de passe ou nom d\'utilisateur incorrect<p>';

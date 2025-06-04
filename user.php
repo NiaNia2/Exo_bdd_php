@@ -9,6 +9,13 @@ if (!empty($_POST['name']) && !empty($_POST['firstname']) && !empty($_POST['pass
 
     $requestcreate = $bdd->prepare('INSERT INTO user(nom,prenom,mot_passe) VALUES(?,?,?)');
     $requestcreate->execute(array($name, $firstname, $password));
+
+    $requestcreate = $bdd->prepare("SELECT id,nom,prenom FROM user WHERE nom = '$name' AND prenom = '$firstname'");
+    $requestcreate->execute(array());
+    $data = $requestcreate->fetch();
+
+    $_SESSION['user'] = ['id' => $data['id'], 'nom' => $data['nom'], 'prenom' => $data['prenom']];
+    header('location:index.php');
 }
 ?>
 <!DOCTYPE html>

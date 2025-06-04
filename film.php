@@ -9,10 +9,7 @@ $request = $bdd->prepare("SELECT titre, realisateur, genre, duree, synopsis
 
 $request->execute(array($idFilm));
 
-while ($data = $request->fetch()) {
-    echo '<p>Titre: ' . $data['titre'] . ' Réalisateur: ' . $data['realisateur'] . ' Genre: ' . $data['genre'] . ' Durée: ' . $data['duree'] . ' Synopsis: ' . $data['synopsis'] . '</p>';
-    echo '<a href="modif.php?id=' . $idFilm . '" class="btn">Modifier</a>';
-}
+
 
 ?>
 
@@ -36,8 +33,16 @@ while ($data = $request->fetch()) {
 </head>
 
 <body>
+    <?php
+    while ($data = $request->fetch()) {
+        echo '<p>Titre: ' . $data['titre'] . ' Réalisateur: ' . $data['realisateur'] . ' Genre: ' . $data['genre'] . ' Durée: ' . $data['duree'] . ' Synopsis: ' . $data['synopsis'] . '</p>';
+        if (isset($_SESSION['user'])) {
+            echo '<a href="modif.php?id=' . $idFilm . '" class="btn">Modifier</a>';
+            echo '<a href="supp.php?id=' . $idFilm . '" class="btn">Supprimer</a>';
+        }
+    }
+    ?>
 
-    <a href="supp.php" class="btn">Supprimer</a>
 </body>
 
 </html>

@@ -3,9 +3,7 @@ session_start();
 $bdd = new PDO('mysql:host=mysql;dbname=mediatheque;charset=utf8', 'root', 'root');
 
 $request = $bdd->query('SELECT id, titre, realisateur, genre, duree FROM film ORDER BY id DESC');
-while ($data = $request->fetch()) {
-    echo '<p>Titre: ' . $data['titre'] . ' Réalisateur: ' . $data['realisateur'] . ' Genre: ' . $data['genre'] . ' Durée: ' . $data['duree'] . '</p><a target="_blank" class="btn" href="film.php?id=' . $data['id'] . '"> Voir plus</a>';
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +27,11 @@ while ($data = $request->fetch()) {
 </head>
 
 <body>
-
+    <?php
+    while ($data = $request->fetch()) {
+        echo '<p>Titre: ' . $data['titre'] . ' Réalisateur: ' . $data['realisateur'] . ' Genre: ' . $data['genre'] . ' Durée: ' . $data['duree'] . '</p><a target="_blank" class="btn" href="film.php?id=' . $data['id'] . '"> Voir plus</a>';
+    }
+    ?>
 
 </body>
 

@@ -1,15 +1,18 @@
 <?php ob_start();
 session_start();
 $bdd = new PDO('mysql:host=mysql;dbname=mediatheque;charset=utf8', 'root', 'root');
-if (isset($_POST['titre']) && isset($_POST['realisateur']) && isset($_POST['genre']) && isset($_POST['duree']) && isset($_POST['synopsis'])) {
-    $titre = htmlspecialchars($_POST['titre']);
-    $realisateur = htmlspecialchars($_POST['realisateur']);
-    $genre = htmlspecialchars($_POST['genre']);
-    $duree = htmlspecialchars($_POST['duree']);
-    $synopsis = htmlspecialchars($_POST['synopsis']);
-    $requestcreat = $bdd->prepare('INSERT INTO film(titre,realisateur,genre,duree,synopsis) VALUES(?,?,?,?,?)');
-    $requestcreat->execute(array($titre, $realisateur, $genre, $duree, $synopsis));
-    header('location:film.php');
+if (isset($_SESSION['user'])) {
+    if (isset($_POST['titre']) && isset($_POST['realisateur']) && isset($_POST['genre']) && isset($_POST['duree']) && isset($_POST['synopsis'])) {
+        $titre = htmlspecialchars($_POST['titre']);
+        $realisateur = htmlspecialchars($_POST['realisateur']);
+        $genre = htmlspecialchars($_POST['genre']);
+        $duree = htmlspecialchars($_POST['duree']);
+        $synopsis = htmlspecialchars($_POST['synopsis']);
+        $requestcreat = $bdd->prepare('INSERT INTO film(titre,realisateur,genre,duree,synopsis,user_id) 
+                                       VALUES(?,?,?,?,?,?)');
+        $requestcreat->execute(array($titre, $realisateur, $genre, $duree, $synopsis, $_SESSION['user']['id']));
+        header('location:film.php');
+    }
 }
 
 ?>

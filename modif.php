@@ -15,11 +15,11 @@ if (!empty($_POST['titre']) && !empty($_POST['realisateur']) && !empty($_POST['g
     $duree = htmlspecialchars($_POST['duree']);
     $synopsis = htmlspecialchars($_POST['synopsis']);
 
-    $request = $bdd->prepare('UPDATE film(titre,realisateur,genre,duree,synopsis) 
+    $request = $bdd->prepare('UPDATE film
                               SET titre= ?, realisateur = ?, genre = ?, duree = ?, synopsis = ?
                               WHERE id = ?');
     $request->execute(array($titre, $realisateur, $genre, $duree, $synopsis, $idFilm));
-    header('location:film.php');
+    header('location:total_film.php');
 }
 
 
@@ -45,7 +45,7 @@ if (!empty($_POST['titre']) && !empty($_POST['realisateur']) && !empty($_POST['g
 
 <body>
     <?php
-    echo '<form action="form.php?id=' . $idFilm . '" method="post">';
+    echo '<form action="modif.php?id=' . $idFilm . '" method="post">';
     echo '<label for="titre">Titre: </label>';
     echo '<input type="text" name="titre" value="' . $data['titre'] . '"><br>';
     echo '<label for="realisateur">Réalisateur: </label>';
@@ -56,7 +56,7 @@ if (!empty($_POST['titre']) && !empty($_POST['realisateur']) && !empty($_POST['g
     echo '<input type="number" name="duree" value="' . $data['duree'] . '"><br>';
     echo ' <label for="synopsis">Synopsys: </label>';
     echo '<input type="text" name="synopsis" value="' . $data['synopsis'] . '"><br>';
-    echo '<input type="submit" value="envoyer" class="btn">';
+    echo '<input type="submit" value="Envoyer!" class="btn">';
     echo '</form>';
     ?>
 </body>
